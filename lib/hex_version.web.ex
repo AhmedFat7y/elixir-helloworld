@@ -4,7 +4,7 @@ defmodule HexVersion.Web do
   require IEx
   import Plug.Conn.Query
   plug Plug.Logger
-  plug Plug.Parsers, parsers: [:json]
+  plug Plug.Parsers, parsers: [:json], json_decoder: Poison
   plug :match
   plug :dispatch
 
@@ -13,7 +13,7 @@ defmodule HexVersion.Web do
   end
 
   def start_link do
-    {:ok, _} = Plug.Adapters.Cowboy.http HexVersion.Web, [], [port: 4001]
+    {:ok, _} = Plug.Adapters.Cowboy.http HexVersion.Web, [], [port: 4000]
   end
 
   get "/" do
@@ -21,6 +21,7 @@ defmodule HexVersion.Web do
     |> send_resp(200, "ok")
     |> halt
   end
+
   get "/webhook/" do
     # IEx.pry
     query = decode(conn.query_string)
@@ -35,11 +36,15 @@ defmodule HexVersion.Web do
     |> send_resp(status, message)
     |> halt
   end
-  get "/webhook/sub/" do
+
+  post "/webhook/" do
     conn
-    |> send_resp(200, conn.query_string)
+    |> send_resp(200, '')
     |> halt
+    IEx.pry
+    conn
   end
+
   match _ do
     conn
     |> send_resp(404, "oops")

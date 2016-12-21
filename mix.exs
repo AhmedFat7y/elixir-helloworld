@@ -32,7 +32,8 @@ defmodule HelloWorld.Mixfile do
     [
       {:cowboy, "~> 1.0.3"},
       {:plug, "~> 1.0"},
-      {:httpotion, "~> 3.0.2"}
+      {:httpotion, "~> 3.0.2"},
+      {:poison, "~> 3.0"}
     ]
   end
 end
