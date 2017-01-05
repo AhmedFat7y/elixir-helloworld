@@ -13,7 +13,7 @@ defmodule HexVersion.Web do
   end
 
   def start_link do
-    {:ok, _} = Plug.Adapters.Cowboy.http HexVersion.Web, [], [port: 4000]
+    {:ok, _} = Plug.Adapters.Cowboy.http HexVersion.Web, [], [port: 3000]
   end
 
   get "/" do
@@ -21,8 +21,7 @@ defmodule HexVersion.Web do
     |> send_resp(200, "ok")
     |> halt
   end
-
-  get "/webhook/" do
+  get "/webhook/384091mucfkldsgfh9p8q2375ur4p98/" do
     # IEx.pry
     query = decode(conn.query_string)
     [status, message] = 
