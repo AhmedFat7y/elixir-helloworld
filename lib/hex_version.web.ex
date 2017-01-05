@@ -36,11 +36,11 @@ defmodule HexVersion.Web do
     |> halt
   end
 
-  post "/webhook/" do
+  post "/webhook/384091mucfkldsgfh9p8q2375ur4p98/" do
     IO.puts "\n=====================\n"
     conn.body_params["entry"]
     |> Enum.each(fn entry ->
-      Task.async fn -> FBMessengerAPI.mark_seen(entry["messaging"]) end
+      Task.async fn -> FBMessengerAPI.handle(entry["messaging"]) end
     end)
     conn
     |> send_resp(200, '')
